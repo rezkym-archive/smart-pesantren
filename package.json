@@ -123,5 +123,5 @@
         "sass-loader": "^8.0.2",
         "tailwindcss": "^2.2.16",
         "vue-template-compiler": "^2.6.12"
-    },
+    }
 }
