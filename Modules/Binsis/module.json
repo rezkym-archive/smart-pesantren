@@ -1,0 +1,13 @@
+{
+    "name": "Binsis",
+    "alias": "binsis",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Binsis\\Providers\\BinsisServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
