@@ -1,46 +1,90 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" {{ Metronic::printAttrs('html') }}
+    {{ Metronic::printClasses('html') }}>
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+<head>
+    <meta charset="utf-8" />
 
-        <!-- Fonts -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+    {{-- Title Section --}}
+    <title>{{ config('app.name') }} | @yield('title', $page_title ?? '')</title>
 
-        <!-- Styles -->
-        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    {{-- Meta Data --}}
+    <meta name="description" content="@yield('page_description', $page_description ?? '')" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        @livewireStyles
+    {{-- Favicon --}}
+    <link rel="shortcut icon" href="{{ asset('media/logos/favicon.ico') }}" />
 
-        <!-- Scripts -->
-        <script src="{{ mix('js/app.js') }}" defer></script>
-    </head>
-    <body class="font-sans antialiased">
-        <x-jet-banner />
+    {{-- Fonts --}}
+    {{ Metronic::getGoogleFontsInclude() }}
 
-        <div class="min-h-screen bg-gray-100">
-            @livewire('navigation-menu')
+    {{-- Global Theme Styles (used by all pages) --}}
+    @foreach (config('layout.resources.css') as $style)
+        <link href="{{ config('layout.self.rtl') ? asset(Metronic::rtlCssPath($style)) : asset($style) }}"
+            rel="stylesheet" type="text/css" />
+    @endforeach
 
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
+    {{-- Layout Themes (used by all pages) --}}
+    @foreach (Metronic::initThemes() as $theme)
+        <link href="{{ config('layouts.self.rtl') ? asset(Metronic::rtlCssPath($theme)) : asset($theme) }}"
+            rel="stylesheet" type="text/css" />
+    @endforeach
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
-        </div>
+    {{-- Global site tag (gtag.js) - Google Analytics --}}
+    @if (env('GOOGLE_ANALYTIC_STATUS'))
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-T3J0D82NLP"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
 
-        @stack('modals')
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
 
-        @livewireScripts
-    </body>
+            gtag('config', {{ env('GOOGLE_ANALYTIC_CODE') }});
+        </script>
+    @endif
+
+    {{-- Includable CSS --}}
+    @yield('styles')
+
+    {{-- Livewire Style --}}
+    @livewireStyles
+
+</head>
+
+<body {{ Metronic::printAttrs('body') }} {{ Metronic::printClasses('body') }}>
+
+    @if (config('layouts.page-loader.type') != '')
+        @include('layouts.partials._page-loader')
+    @endif
+
+    @include('layouts.base._layout')
+
+    <script>
+        var HOST_URL = "{{ route('quick-search') }}";
+    </script>
+
+    {{-- Global Config (global config for global JS scripts) --}}
+    <script>
+        var KTAppSettings = {!! json_encode(config('layout.js'), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) !!};
+    </script>
+
+    {{-- Global Theme JS Bundle (used by all pages) --}}
+    @foreach (config('layout.resources.js') as $script)
+        <script src="{{ asset($script) }}" type="text/javascript"></script>
+    @endforeach
+
+    {{-- Includable JS from @section --}}
+    @yield('scripts')
+
+    {{-- Includable JS from @push --}}
+    @stack('scripts')
+
+    {{-- Livewire Script --}}
+    @livewireScripts
+</body>
+
 </html>
