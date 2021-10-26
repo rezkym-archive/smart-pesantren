@@ -5,26 +5,10 @@
         "development": "mix",
         "watch": "mix watch",
         "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "watch-production": "cross-env NODE_ENV=production webpack --watch --progress --hide-modules",
         "hot": "mix watch --hot",
         "prod": "npm run production",
         "production": "mix --production"
-    },
-    "devDependencies": {
-        "@tailwindcss/forms": "^0.3.1",
-        "@tailwindcss/typography": "^0.4.0",
-        "alpinejs": "^3.0.6",
-        "axios": "^0.21",
-        "laravel-mix": "^6.0.6",
-        "lodash": "^4.17.19",
-        "postcss": "^8.1.14",
-        "postcss-import": "^14.0.1",
-        "tailwindcss": "^2.2.2",
-        "cross-env": "^7.0.3",
-        "replace-in-file-webpack-plugin": "^1.0.6",
-        "resolve-url-loader": "^3.1.2",
-        "sass": "^1.42.1",
-        "sass-loader": "^8.0.2",
-        "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
         "@ckeditor/ckeditor5-alignment": "^30.0.0",
@@ -122,5 +106,22 @@
         "uppy": "^2.2.0",
         "waypoints": "^4.0.1",
         "wnumb": "^1.2.0"
-    }
+    },
+    "devDependencies": {
+        "@tailwindcss/forms": "^0.3.4",
+        "@tailwindcss/typography": "^0.4.0",
+        "alpinejs": "^3.4.2",
+        "axios": "^0.21",
+        "cross-env": "^7.0.3",
+        "laravel-mix": "^6.0.31",
+        "lodash": "^4.17.20",
+        "postcss": "^8.3.9",
+        "postcss-import": "^14.0.1",
+        "replace-in-file-webpack-plugin": "^1.0.6",
+        "resolve-url-loader": "^3.1.2",
+        "sass": "^1.42.1",
+        "sass-loader": "^8.0.2",
+        "tailwindcss": "^2.2.16",
+        "vue-template-compiler": "^2.6.12"
+    },
 }
