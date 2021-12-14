@@ -14,26 +14,26 @@
         <!--begin::Form group-->
         <div class="form-group">
             <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6" type="text"
-                placeholder="Nama Lengkap" name="name" autocomplete="on" autofocus />
+                placeholder="Nama Lengkap" name="name" value="{{ old('name') }}" autocomplete="on" autofocus />
         </div>
         <!--end::Form group-->
         <!--begin::Form group-->
         <div class="form-group">
             <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6" type="email"
-                placeholder="Email" name="email" autocomplete="on" />
+                placeholder="Email" name="email" value="{{ old('email') }}" autocomplete="on" />
         </div>
         <!--end::Form group-->
         <!--begin::Form group-->
         <div class="form-group">
             <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg font-size-h6" type="password"
-                placeholder="Kata sandi" name="password" autocomplete="off" />
+                placeholder="Kata sandi" name="password" value="{{ old('password') }}" autocomplete="off" />
         </div>
         <!--end::Form group-->
         <!--begin::Form group-->
         @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
             <div class="form-group">
                 <label class="checkbox mb-0">
-                    <input type="checkbox" name="terms" value="yes" />
+                    <input type="checkbox" name="agree" value="yes" />
                     <a href="{{ route('terms.show') }}">
                         Syarat dan kondisi
                     </a>

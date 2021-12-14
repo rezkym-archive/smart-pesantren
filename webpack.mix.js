@@ -75,6 +75,7 @@ mix.copyDirectory('resources/metronic/media', 'public/media');
 
 mix.webpackConfig({
     plugins: [
+
         new ReplaceInFileWebpackPlugin([
             {
                 // rewrite font paths

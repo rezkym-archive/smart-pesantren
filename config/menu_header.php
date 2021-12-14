@@ -2,6 +2,7 @@
 // Header menu
 return [
 
+    'display'   => false,
     'items' => [
         [],
         [

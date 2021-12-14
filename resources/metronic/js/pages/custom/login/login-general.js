@@ -61,9 +61,9 @@ var KTLogin = (function () {
             validation.validate().then(function (status) {
                 if (status == "Valid") {
                     KTUtil.scrollTop();
-                    $('#kt_login_signin_form').submit();
+                    $("#kt_login_signin_form").submit();
                 } else {
-					KTUtil.scrollTop();
+                    KTUtil.scrollTop();
                 }
             });
         });
@@ -88,49 +88,44 @@ var KTLogin = (function () {
         // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
         validation = FormValidation.formValidation(form, {
             fields: {
-                fullname: {
+                name: {
                     validators: {
                         notEmpty: {
-                            message: "Username is required",
+                            message: "Nama tidak boleh kosong.",
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z ]+$/,
+                            message: "Nama tidak benar.",
+                        },
+                        stringLength: {
+                            min: 5,
+                            max: 50,
+                            message:
+                                "Nama minimal antara 5 hingga 50 karakter.",
                         },
                     },
                 },
                 email: {
                     validators: {
                         notEmpty: {
-                            message: "Email address is required",
+                            message: "Email tidak boleh kosong.",
                         },
                         emailAddress: {
-                            message: "The value is not a valid email address",
+                            message: "Email tidak benar.",
                         },
                     },
                 },
                 password: {
                     validators: {
                         notEmpty: {
-                            message: "The password is required",
-                        },
-                    },
-                },
-                cpassword: {
-                    validators: {
-                        notEmpty: {
-                            message: "The password confirmation is required",
-                        },
-                        identical: {
-                            compare: function () {
-                                return form.querySelector('[name="password"]')
-                                    .value;
-                            },
-                            message:
-                                "The password and its confirm are not the same",
+                            message: "Kata sandi tidak boleh kosong.",
                         },
                     },
                 },
                 agree: {
                     validators: {
                         notEmpty: {
-                            message: "You must accept the terms and conditions",
+                            message: "Setujui syarat dan persetujuan.",
                         },
                     },
                 },
@@ -147,23 +142,25 @@ var KTLogin = (function () {
             validation.validate().then(function (status) {
                 if (status == "Valid") {
                     swal.fire({
-                        text: "All is cool! Now you submit this form",
+                        text: "Apakah semua data sudah benar?",
                         icon: "success",
                         buttonsStyling: false,
-                        confirmButtonText: "Ok, got it!",
+                        cancelButtonText: "Ehhh! belum.",
+                        confirmButtonText: "Yeups, udah!",
                         customClass: {
                             confirmButton:
                                 "btn font-weight-bold btn-light-primary",
                         },
                     }).then(function () {
                         KTUtil.scrollTop();
+                        $("#kt_login_signup_form").submit();
                     });
                 } else {
                     swal.fire({
-                        text: "Sorry, looks like there are some errors detected, please try again.",
+                        text: "Upss! ada yang salah nih, coba cek lagi kuy.",
                         icon: "error",
                         buttonsStyling: false,
-                        confirmButtonText: "Ok, got it!",
+                        confirmButtonText: "Okeyyy.",
                         customClass: {
                             confirmButton:
                                 "btn font-weight-bold btn-light-primary",

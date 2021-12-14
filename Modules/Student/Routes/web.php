@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -11,6 +12,6 @@
 |
 */
 
-Route::prefix('student')->group(function() {
+Route::prefix('student')->middleware(['role:student', 'auth:sanctum'])->group(function() {
     Route::get('/', 'StudentController@index');
 });

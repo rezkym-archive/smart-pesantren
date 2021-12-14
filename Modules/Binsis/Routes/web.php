@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -11,6 +12,6 @@
 |
 */
 
-Route::prefix('binsis')->group(function() {
+Route::prefix('binsis')->middleware(['role:binsis', 'auth:sanctum'])->group(function() {
     Route::get('/', 'BinsisController@index');
 });
